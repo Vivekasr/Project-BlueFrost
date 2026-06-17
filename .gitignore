@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build output
+dist/
+build/
+*.egg-info/
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# Vite internal dep-optimization cache (regenerated on dev start)
+.vite/
+
+# Vite generated config (compiled from .ts source)
+frontend/vite.config.js
+
+# Environment — never commit real secrets
+.env
+.env.local
+.env.*.local
+
+# Editors
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Test / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Docker volumes (if bind-mounted locally)
+postgres_data/
+redis_data/

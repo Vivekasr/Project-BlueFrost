@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="#FEFCF6"/>
+  <!-- Outer ring -->
+  <circle cx="256" cy="256" r="220" stroke="#2F4156" stroke-width="8" fill="none"/>
+  <!-- Inner dashed ring -->
+  <circle cx="256" cy="256" r="184" stroke="#2F4156" stroke-width="5" stroke-dasharray="10 18" fill="none"/>
+  <!-- Tick marks -->
+  <g stroke="#2F4156">
+    <line x1="256" y1="36" x2="256" y2="64" stroke-width="8"/>
+    <line x1="256" y1="448" x2="256" y2="476" stroke-width="8"/>
+    <line x1="36" y1="256" x2="64" y2="256" stroke-width="8"/>
+    <line x1="448" y1="256" x2="476" y2="256" stroke-width="8"/>
+    <line x1="101" y1="101" x2="122" y2="122" stroke-width="5"/>
+    <line x1="390" y1="101" x2="411" y2="122" stroke-width="5"/>
+    <line x1="101" y1="411" x2="122" y2="390" stroke-width="5"/>
+    <line x1="390" y1="411" x2="411" y2="390" stroke-width="5"/>
+  </g>
+  <!-- Cardinal letters -->
+  <text x="256" y="104" font-family="Georgia, serif" font-size="52" fill="#2F4156" text-anchor="middle" dominant-baseline="middle">N</text>
+  <text x="256" y="416" font-family="Georgia, serif" font-size="44" fill="#2F4156" text-anchor="middle" dominant-baseline="middle">S</text>
+  <text x="408" y="264" font-family="Georgia, serif" font-size="44" fill="#2F4156" text-anchor="middle" dominant-baseline="middle">E</text>
+  <text x="104" y="264" font-family="Georgia, serif" font-size="44" fill="#2F4156" text-anchor="middle" dominant-baseline="middle">W</text>
+  <!-- North needle (rose/red) -->
+  <path d="M256 136 L268 256 L256 256 Z" fill="#AC8087"/>
+  <!-- South needle (navy) -->
+  <path d="M256 136 L244 256 L256 256 Z" fill="#2F4156" fill-opacity="0.85"/>
+  <path d="M256 376 L268 256 L256 256 Z" fill="#2F4156" fill-opacity="0.5"/>
+  <path d="M256 376 L244 256 L256 256 Z" fill="#2F4156" fill-opacity="0.7"/>
+  <!-- East/West needles -->
+  <path d="M136 256 L256 268 L256 256 Z" fill="#2F4156" fill-opacity="0.5"/>
+  <path d="M136 256 L256 244 L256 256 Z" fill="#2F4156" fill-opacity="0.35"/>
+  <path d="M376 256 L256 268 L256 256 Z" fill="#2F4156" fill-opacity="0.35"/>
+  <path d="M376 256 L256 244 L256 256 Z" fill="#2F4156" fill-opacity="0.5"/>
+  <!-- Center dot -->
+  <circle cx="256" cy="256" r="18" fill="#2F4156"/>
+</svg>

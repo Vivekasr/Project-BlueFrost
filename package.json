@@ -1,0 +1,12 @@
+{
+  "name": "bluefrost",
+  "private": true,
+  "scripts": {
+    "dev":     "cd frontend && npm run dev",
+    "build":   "cd frontend && npm run build",
+    "preview": "cd frontend && npm run preview",
+    "install:frontend": "cd frontend && npm install",
+    "docker:up":   "docker compose -f infra/docker/docker-compose.yml up",
+    "docker:down": "docker compose -f infra/docker/docker-compose.yml down"
+  }
+}
