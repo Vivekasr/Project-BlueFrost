@@ -4,6 +4,14 @@ import React from 'react';
 import { BF_EMBLEMS, Compass } from './art';
 
 /* ---------- types ---------- */
+export interface PuzzleEntry {
+  name: string;
+  step: number;
+  total: number;
+  status: 'completed' | 'in_progress';
+  cat: 0 | 1 | 2 | 3;
+}
+
 export interface UserProfile {
   name: string;
   handle: string;
@@ -13,8 +21,7 @@ export interface UserProfile {
   joined: string;
   place: string;
   blurb: string;
-  stats: { relics: number; ciphers: number; trails: number };
-  streak: number;
+  puzzles: PuzzleEntry[];
   trail: { name: string; step: number; total: number; hint: string };
   journal: Array<{ t: string; meta: string; i: number; kind: 'rose' | 'sage' | 'navy' }>;
   guild: { name: string; members: number; standing: string };
@@ -30,8 +37,11 @@ export const SELF_DATA: UserProfile = {
   joined: 'Joined Mar 2024',
   place: 'Port Meridian',
   blurb: "Patient with a riddle, ruthless with a map. Currently three clues from the Tidewater hoard.",
-  stats: { relics: 47, ciphers: 128, trails: 9 },
-  streak: 12,
+  puzzles: [
+    { name: 'The Tidewater Riddle',   step: 5, total: 8, status: 'in_progress', cat: 0 },
+    { name: 'The Lighthouse Cipher',  step: 6, total: 6, status: 'completed',   cat: 1 },
+    { name: 'Meridian Vault',         step: 4, total: 4, status: 'completed',   cat: 3 },
+  ],
   trail: { name: 'The Tidewater Riddle', step: 5, total: 8, hint: 'Clue V · "Where the gull\'s shadow drowns at noon."' },
   journal: [
     { t: 'Cracked the Lighthouse Cipher', meta: 'Cipher · 2h ago', i: 1, kind: 'rose' },
@@ -51,8 +61,11 @@ export const PUBLIC_DATA: UserProfile = {
   joined: 'Joined Jul 2023',
   place: 'Saltmere',
   blurb: "Has never met a riddle she couldn't unspool. Keeper of the longest solve-streak in the Society.",
-  stats: { relics: 112, ciphers: 340, trails: 21 },
-  streak: 41,
+  puzzles: [
+    { name: 'The Saltmere Verses',    step: 9, total: 9, status: 'completed',   cat: 1 },
+    { name: 'The Vellum Rotation',    step: 5, total: 5, status: 'completed',   cat: 1 },
+    { name: 'The Meridian Vault',     step: 2, total: 8, status: 'in_progress', cat: 3 },
+  ],
   trail: { name: 'The Saltmere Verses', step: 7, total: 9, hint: 'Clue VII · sealed until you both reach it.' },
   journal: [
     { t: 'Completed The Saltmere Verses', meta: 'Trail · 5h ago', i: 2, kind: 'sage' },
@@ -146,59 +159,41 @@ export function TitleLine({ title, rank, dark = false }: { title: string; rank: 
   );
 }
 
-/* ---------- StatLedger — serif numerals with hairline dividers ---------- */
-export function StatLedger({ stats, dark = false }: { stats: UserProfile['stats']; dark?: boolean }) {
-  const items: [string, number][] = [
-    ['Relics', stats.relics],
-    ['Ciphers', stats.ciphers],
-    ['Trails', stats.trails],
-  ];
-  const ink = dark ? '#FEFCF6' : 'var(--navy)';
-  const sub = dark ? 'rgba(254,252,246,.6)' : 'var(--muted)';
+/* ---------- PuzzleList ---------- */
+export function PuzzleList({ puzzles }: { puzzles: PuzzleEntry[] }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'stretch' }}>
-      {items.map(([label, n], i) => (
-        <React.Fragment key={label}>
-          {i > 0 && <div style={{ width: 1, background: dark ? 'rgba(254,252,246,.18)' : 'var(--line)', margin: '2px 0' }} />}
-          <div style={{ flex: 1, textAlign: 'center', padding: '0 8px' }}>
-            <div style={{ fontFamily: 'var(--serif)', fontSize: 28, lineHeight: 1, color: ink }}>{n}</div>
-            <div style={{
-              fontFamily: 'var(--sans)', fontSize: 10.5, fontWeight: 700,
-              letterSpacing: '1.4px', textTransform: 'uppercase' as const, color: sub, marginTop: 7,
-            }}>{label}</div>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {puzzles.map((p, idx) => {
+        const E = BF_EMBLEMS[p.cat];
+        const done = p.status === 'completed';
+        return (
+          <div key={idx} style={{
+            display: 'flex', alignItems: 'center', gap: 12,
+            padding: '10px 0',
+            borderTop: idx === 0 ? 'none' : '1px solid var(--faint)',
+          }}>
+            <div style={{ width: 36, height: 36, borderRadius: 10, background: 'var(--sand)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: '0 0 auto' }}>
+              <E.Art size={24} />
+            </div>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--navy)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', flex: 1 }}>{p.name}</span>
+                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.3px', color: done ? 'var(--sage)' : 'var(--rose)', whiteSpace: 'nowrap', flex: '0 0 auto' }}>
+                  {done ? 'Complete' : `Clue ${p.step} of ${p.total}`}
+                </span>
+              </div>
+              <div style={{ display: 'flex', gap: 3, marginTop: 6 }}>
+                {Array.from({ length: p.total }).map((_, i) => (
+                  <div key={i} style={{
+                    flex: 1, height: 4, borderRadius: 2,
+                    background: i < p.step ? (done ? 'var(--sage)' : 'var(--navy)') : 'var(--line)',
+                  }} />
+                ))}
+              </div>
+            </div>
           </div>
-        </React.Fragment>
-      ))}
-    </div>
-  );
-}
-
-/* ---------- StatStamps — bordered passport-stamp tiles ---------- */
-export function StatStamps({ stats, streak }: { stats: UserProfile['stats']; streak: number }) {
-  const items: Array<{ n: number; label: string; glyph: PIconName; accent?: boolean }> = [
-    { n: stats.relics,  label: 'Relics',  glyph: 'scroll' },
-    { n: stats.ciphers, label: 'Ciphers', glyph: 'spark'  },
-    { n: stats.trails,  label: 'Trails',  glyph: 'flag'   },
-    { n: streak,        label: 'Streak',  glyph: 'flame',  accent: true },
-  ];
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 10 }}>
-      {items.map((it) => (
-        <div key={it.label} style={{
-          position: 'relative', border: '1.5px solid var(--line)', borderRadius: 14,
-          background: '#fff', padding: '14px 8px 11px', textAlign: 'center', overflow: 'hidden',
-        }}>
-          <div style={{ position: 'absolute', inset: 4, borderRadius: 10, border: '1px solid var(--faint)', pointerEvents: 'none' }} />
-          <div style={{ color: it.accent ? 'var(--rose)' : 'var(--sage)', display: 'flex', justifyContent: 'center', marginBottom: 4 }}>
-            <PIcon name={it.glyph} size={16} />
-          </div>
-          <div style={{ fontFamily: 'var(--serif)', fontSize: 24, lineHeight: 1, color: 'var(--navy)' }}>{it.n}</div>
-          <div style={{
-            fontFamily: 'var(--sans)', fontSize: 9.5, fontWeight: 700,
-            letterSpacing: '1.2px', textTransform: 'uppercase' as const, color: 'var(--muted)', marginTop: 5,
-          }}>{it.label}</div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

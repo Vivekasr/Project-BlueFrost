@@ -134,15 +134,9 @@ export function Hunt() {
           </div>
           <div style={{ minWidth: 0, flex: 1 }}>
             <div style={{ fontFamily: 'var(--serif)', fontSize: 22, color: 'var(--navy)', lineHeight: 1.05 }}>{hunt.title}</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginTop: 6, fontSize: 12, color: 'var(--muted)', flexWrap: 'wrap' }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                <CrestAvatar emblemIndex={hunt.crest} size={20} seal={false} />
-                by <b style={{ color: 'var(--navy)' }}>{hunt.author}</b>
-              </span>
-              <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'rgba(47,65,86,.28)', display: 'block' }} />
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                <FIcon name="pin" size={12} stroke="var(--sage)" />{hunt.region}
-              </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginTop: 6, fontSize: 12, color: 'var(--muted)' }}>
+              <CrestAvatar emblemIndex={hunt.crest} size={20} seal={false} />
+              by <b style={{ color: 'var(--navy)' }}>{hunt.author}</b>
             </div>
           </div>
         </div>
@@ -209,8 +203,6 @@ export function Hunt() {
                 </span>
               </div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 11, fontSize: 12, color: 'rgba(47,65,86,.7)' }}>
-                <FIcon name="pin" size={13} stroke="var(--sage)" />{hunt.region}
-                <span style={{ width: 3, height: 3, borderRadius: '50%', background: 'rgba(47,65,86,.28)', display: 'block', margin: '0 2px' }} />
                 <FIcon name="users" size={13} stroke="var(--sage)" />
                 <b style={{ color: 'var(--navy)' }}>{hunt.players}</b> solving
               </div>

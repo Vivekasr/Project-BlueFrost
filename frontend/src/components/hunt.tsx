@@ -29,7 +29,6 @@ export interface HuntData {
   crest: 0 | 1 | 2 | 3;
   cat: 0 | 1 | 2 | 3;
   diff: 1 | 2 | 3 | 4 | 5;
-  region: string;
   players: string;
   rating: string;
   reviews: number;
@@ -58,7 +57,6 @@ export const HUNT_DATA: HuntData = {
   crest: 0,
   cat: 0,
   diff: 4,
-  region: 'Port Meridian',
   players: '840',
   rating: '4.9',
   reviews: 212,

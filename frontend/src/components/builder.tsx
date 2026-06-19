@@ -28,7 +28,6 @@ export interface BuilderClue {
 
 export interface BuilderHunt {
   title: string;
-  region: string;
   cat: 0 | 1 | 2 | 3;
   diff: 1 | 2 | 3 | 4 | 5;
   prize: string;
@@ -53,7 +52,6 @@ export interface BuilderState {
 /* ---------- initial data ---------- */
 const initialHunt: BuilderHunt = {
   title: 'The Drowned Cathedral',
-  region: 'Port Meridian',
   cat: 0,
   diff: 4,
   prize: 'The Tidewatcher’s Seal',

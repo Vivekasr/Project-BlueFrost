@@ -8,10 +8,9 @@ import { StatusBar, Wordmark } from '../components/ui';
 import { CrestAvatar, SELF_DATA } from '../components/profile';
 import {
   useBuilder, ClueEditor, RailCard, BuilderDiff, CheckRow,
-  BLabel, BInput, BTextarea, BHelp, ImageSlot, B_CATS, CatGlyph,
+  BLabel, BInput, BTextarea, BHelp, ImageSlot,
 } from '../components/builder';
 import { HIcon } from '../components/hunt';
-import { FIcon } from '../components/feed';
 
 /* ===== top nav ===== */
 function BuilderTopNav() {
@@ -41,11 +40,6 @@ function BuilderTopNav() {
   );
 }
 
-/* ===== main layout ===== */
-function BuilderLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
-}
-
 export function HuntBuilder() {
   const b = useBuilder();
   const leftRef = React.useRef<HTMLDivElement>(null);
@@ -53,10 +47,9 @@ export function HuntBuilder() {
 
   const answersOk = b.clues.every((c) => c.answers.length > 0);
   const titleOk = b.hunt.title.trim().length > 0;
-  const regionOk = b.hunt.region.trim().length > 0;
   const enoughClues = b.clues.length >= 3;
-  const ready = answersOk && titleOk && regionOk && enoughClues;
-  const remaining = [titleOk, regionOk, enoughClues, answersOk].filter((x) => !x).length;
+  const ready = answersOk && titleOk && enoughClues;
+  const remaining = [titleOk, enoughClues, answersOk].filter((x) => !x).length;
 
   const jumpTo = (id: string) => {
     const clue = b.clues.find((x) => x.id === id);
@@ -143,26 +136,8 @@ export function HuntBuilder() {
 
       <RailCard title="Trail settings">
         <div style={{ marginBottom: 16 }}>
-          <BLabel>Category</BLabel>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            {B_CATS.map((c, i) => {
-              const on = b.hunt.cat === i;
-              return (
-                <button key={c} onClick={() => b.patchHunt({ cat: i as 0 | 1 | 2 | 3 })}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '8px 12px', borderRadius: 999, cursor: 'pointer', border: '1.5px solid ' + (on ? 'var(--navy)' : 'rgba(47,65,86,.16)'), background: on ? 'var(--navy)' : '#fff', color: on ? 'var(--cream)' : 'rgba(47,65,86,.7)', fontFamily: 'var(--sans)', fontSize: 12.5, fontWeight: 600 }}>
-                  <CatGlyph i={i} size={16} />{c}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-        <div style={{ marginBottom: 16 }}>
           <BLabel>Difficulty</BLabel>
           <BuilderDiff value={b.hunt.diff} onChange={(v) => b.patchHunt({ diff: v as 1 | 2 | 3 | 4 | 5 })} />
-        </div>
-        <div style={{ marginBottom: 16 }}>
-          <BLabel>Region</BLabel>
-          <BInput value={b.hunt.region} onChange={(v) => b.patchHunt({ region: v })} placeholder="Where does it take place?" icon="pin" />
         </div>
         <div>
           <BLabel>Prize / reward</BLabel>
@@ -194,7 +169,6 @@ export function HuntBuilder() {
 
       <RailCard title="Before you publish">
         <CheckRow ok={titleOk}>Hunt has a title</CheckRow>
-        <CheckRow ok={regionOk}>Region is set</CheckRow>
         <CheckRow ok={enoughClues}>At least 3 clues ({b.clues.length})</CheckRow>
         <CheckRow ok={answersOk}>Every clue has an answer</CheckRow>
         <button disabled={!ready} className={'bf-btn ' + (ready ? 'bf-btn-primary' : '')}

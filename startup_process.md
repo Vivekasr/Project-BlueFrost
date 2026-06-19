@@ -75,12 +75,14 @@ npm run docker:down  # stop and remove containers
 
 ### Profile (`/profile`, `/profile?view=public`)
 
-**Mobile (Field Dossier):** Navy grid banner, `CrestAvatar` overlapping the banner edge, stat ledger (Relics · Ciphers · Trails), trail progress stepper, 3-entry journal.
+**Mobile (Field Dossier):** Navy grid banner, `CrestAvatar` overlapping the banner edge, then in order: title/rank line, blurb, action buttons, **Puzzles section**, trail progress stepper, journal.
 
-**Desktop (Atlas Card):** Full-width navy hero banner with crest + name + actions inline. 4 passport-stamp stat tiles. Two-column body (journal left, trail + guild right).
+**Desktop (Atlas Card):** Full-width navy hero banner with crest + name + actions inline. **Puzzles section** (white card with puzzle list). Two-column body (journal left, trail + guild right).
+
+**Puzzles section:** Each row shows the category emblem tile, puzzle name, "Clue N of M" (rose) or "Complete" (sage) label, and a segmented progress bar. Sample data: 3 puzzles per profile.
 
 **Self view:** Edit profile button present.
-**Public view:** Follow + Message buttons; no relic collection.
+**Public view:** Follow + Message buttons.
 
 ---
 
@@ -110,7 +112,7 @@ Demo hunt: **"The Drowned Cathedral"** — answers in order: **lighthouse · 7 �
 
 **States:** Wrong answer → shake + attempt count · 2+ wrong → "Reveal a hint" · Solved → sage collapse · Locked → blurred dashed · Complete → navy wax-seal screen.
 
-**Desktop:** Left rail (332 px) with hunt summary + clue ledger (click to jump). Right scrollable trail. Progress persists in `localStorage` (`bf-hunt-progress-v1`).
+**Desktop:** Left rail (332 px) with hunt summary (title, author, difficulty, rating, players solving — no region) + clue ledger (click to jump). Right scrollable trail. Progress persists in `localStorage` (`bf-hunt-progress-v1`).
 
 ---
 
@@ -121,13 +123,13 @@ Demo hunt: **"The Drowned Cathedral"** — answers in order: **lighthouse · 7 �
 | Right rail section | Content |
 |--------------------|---------|
 | Cover | `ImageSlot` — drag-drop or click to browse |
-| Trail settings | Category chips, difficulty diamonds, region, prize |
+| Trail settings | Category chips, difficulty diamonds, prize |
 | Outline | Clickable jump-to clue list |
-| Before you publish | 4-condition checklist gates the Publish button |
+| Before you publish | 3-condition checklist gates the Publish button |
 
 **Clue editors:** Collapsed → type pill + title + answer count + status dot. Expanded → type switcher (Riddle/Image/Map/Video), title, prompt, media editor, answer chips (Enter to add, × to remove), optional hint. Reorder ↑↓, Duplicate, Delete per card.
 
-**Publish gates:** title set · region set · ≥ 3 clues · every clue has ≥ 1 answer.
+**Publish gates:** title set · ≥ 3 clues · every clue has ≥ 1 answer.
 
 **Mobile:** Single column — editor then settings stacked below.
 

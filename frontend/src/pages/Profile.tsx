@@ -3,7 +3,7 @@ import { Compass, Contours } from '../components/art';
 import { Icon, StatusBar, Wordmark } from '../components/ui';
 import {
   SELF_DATA, PUBLIC_DATA,
-  PIcon, CrestAvatar, TitleLine, StatLedger, StatStamps,
+  PIcon, CrestAvatar, TitleLine, PuzzleList,
   TrailProgress, JournalList, GuildStrip,
 } from '../components/profile';
 
@@ -189,9 +189,10 @@ export function Profile() {
 
           <div style={{ marginTop: 13 }}><MobileActions isPublic={isPublic} /></div>
 
-          {/* stat ledger */}
-          <div style={{ marginTop: 13, padding: '11px 4px', borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
-            <StatLedger stats={u.stats} />
+          {/* puzzle section */}
+          <div style={{ marginTop: 16 }}>
+            <SecLabel>Puzzles</SecLabel>
+            <PuzzleList puzzles={u.puzzles} />
           </div>
 
           {/* current trail */}
@@ -243,8 +244,13 @@ export function Profile() {
             </div>
           </div>
 
-          {/* stat stamps */}
-          <StatStamps stats={u.stats} streak={u.streak} />
+          {/* puzzle section */}
+          <div>
+            <WebSecLabel>Puzzles</WebSecLabel>
+            <div style={{ border: '1.5px solid var(--line)', borderRadius: 14, background: '#fff', padding: '4px 20px' }}>
+              <PuzzleList puzzles={u.puzzles} />
+            </div>
+          </div>
 
           {/* body: field journal | trail + guild */}
           <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 20, alignItems: 'start' }}>
